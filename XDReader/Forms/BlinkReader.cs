@@ -12,7 +12,6 @@ using System.Windows.Forms;
 using PokemonXDRNGLibrary;
 using PokemonPRNG.LCG32.GCLCG;
 using PokemonXDRNGLibrary.AdvanceSource;
-using static System.Windows.Forms.LinkLabel;
 using System.IO;
 
 namespace XDReader
@@ -34,7 +33,8 @@ namespace XDReader
             blinkCaptureTestForm.FormClosing += (sender,e) => cancellationTokenSource?.Cancel();
         }
 
-        private const long FPS = (long)(10_000_000 / (29.97 * 2));
+        // private const long FPS = (long)(10_000_000 / (29.97 * 2));
+        private const double FPS = 1000 / 60.0;
         private CancellationTokenSource cancellationTokenSource;
         private BindingList<BlinkResult> blinkResults;
         private readonly CaptureWindowForm captureWindowForm = new CaptureWindowForm("瞬き");
@@ -112,29 +112,27 @@ namespace XDReader
                 var isBlinked = true;
                 var blinkCount = 0;
                 var prevTick = 0L;
-                var nextFrame = DateTime.Now.Ticks;
+                var nextFrame = (double)Environment.TickCount;
                 var resList = new List<int>();
 
                 var frameCounter = 0;
 
                 while (!token.IsCancellationRequested)
                 {
-                    var currentTick = DateTime.Now.Ticks;
+                    var currentTick = Environment.TickCount;
                     if (currentTick >= nextFrame)
                     {
                         frameCounter++;
                         nextFrame += FPS;
 
                         var bmp = captureWindowForm.CaptureScreen();
+                        
                         var isBlinking = !detector.Detect(bmp);
                         if(isBlinking && !isBlinked)
                         {
-                            Invoke((MethodInvoker)(() =>
-                            {
-                                Console.Beep();
-                                if (blinkCount > 0) resList.Add(frameCounter);
-                                blinkResults.Add(new BlinkResult(blinkCount++, frameCounter));
-                            }));
+                            Callback(blinkCount++, frameCounter);
+                            if (blinkCount > 0) resList.Add(frameCounter);
+
                             prevTick = currentTick;
                             frameCounter = 0;
                         }
@@ -146,16 +144,24 @@ namespace XDReader
             }, token);
         }
 
+        private Task Callback(int blinkCount, int frameCounter)
+        {
+            return Task.Run(() => Invoke((MethodInvoker)(() => {
+                Console.Beep();
+                blinkResults.Add(new BlinkResult(blinkCount, frameCounter));
+            })));
+        }
+
         private Task CaptureTestAsync(CancellationToken token)
         {
             var detector = new BlinkDetector("./Source/Blink/Eye.png");
             return Task.Run(() =>
             {
                 var isBlinked = true;
-                var nextFrame = DateTime.Now.Ticks;
+                var nextFrame = (double)Environment.TickCount;
                 while (!token.IsCancellationRequested)
                 {
-                    if (DateTime.Now.Ticks >= nextFrame)
+                    if (Environment.TickCount >= nextFrame)
                     {
                         nextFrame += FPS;
 
