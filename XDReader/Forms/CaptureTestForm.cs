@@ -23,22 +23,9 @@ namespace XDReader
             {
                 Text = "瞬きテスト"
             };
-            form.playerNameBox.Visible = false;
-            form.battleTeamBox.Visible = false;
 
             return form;
         }
-
-        public static CaptureTestForm CreateBattleNowCaptureTestForm()
-        {
-            var form = new CaptureTestForm
-            {
-                Text = "とにかくバトルテスト"
-            };
-            form.faceBox.Visible = false;
-            return form;
-        }
-
 
         private static readonly Size HOSEI = new Size(40, 88);
         public void ResizeFrame(Size size)
@@ -46,12 +33,10 @@ namespace XDReader
             this.Size = size + HOSEI;
             this.pictureBox1.Size = size;
         }
-        public void SetEye(bool blinking) => this.faceBox.Text = blinking ? "-。-" : "･。･";
-        public void SetBattleNow(string p, string t)
-        {
-            playerNameBox.Text = p;
-            battleTeamBox.Text = t;
-        }
+
+        public void SetData(int dots, bool blinking)
+            => (this.faceBox.Text, this.dotCountBox.Text) = (blinking ? "-。-" : "･。･", $"{dots}");
+
         public void UpdateImage(Bitmap bmp)
         {
             var img = pictureBox1.Image;

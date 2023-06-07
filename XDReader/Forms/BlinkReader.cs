@@ -13,6 +13,8 @@ using PokemonXDRNGLibrary;
 using PokemonPRNG.LCG32.GCLCG;
 using PokemonXDRNGLibrary.AdvanceSource;
 using System.IO;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 
 namespace XDReader
 {
@@ -106,7 +108,7 @@ namespace XDReader
             blinkResultBindingSource.DataSource = blinkResults;
             observedData = null;
 
-            var detector = new BlinkDetector("./Source/Blink/Eye.png");
+            var detector = new BlinkDetector();
             return Task.Run(() =>
             {
                 var isBlinked = true;
@@ -114,6 +116,7 @@ namespace XDReader
                 var prevTick = 0L;
                 var nextFrame = (double)Environment.TickCount;
                 var resList = new List<int>();
+                var thresh = (int)blinkThresholdBox.Value;
 
                 var frameCounter = 0;
 
@@ -126,9 +129,10 @@ namespace XDReader
                         nextFrame += FPS;
 
                         var bmp = captureWindowForm.CaptureScreen();
-                        
-                        var isBlinking = !detector.Detect(bmp);
-                        if(isBlinking && !isBlinked)
+                        var cnt = detector.Count(bmp);
+
+                        var isBlinking = cnt < blinkThresholdBox.Value;
+                        if (isBlinking && !isBlinked)
                         {
                             Callback(blinkCount++, frameCounter);
                             if (blinkCount > 0) resList.Add(frameCounter);
@@ -154,10 +158,9 @@ namespace XDReader
 
         private Task CaptureTestAsync(CancellationToken token)
         {
-            var detector = new BlinkDetector("./Source/Blink/Eye.png");
+            var detector = new BlinkDetector();
             return Task.Run(() =>
             {
-                var isBlinked = true;
                 var nextFrame = (double)Environment.TickCount;
                 while (!token.IsCancellationRequested)
                 {
@@ -166,14 +169,16 @@ namespace XDReader
                         nextFrame += FPS;
 
                         var bmp = captureWindowForm.CaptureScreen();
-                        var isBlinking = !detector.Detect(bmp);
+                        var cnt = detector.Count(bmp);
+
+                        var isBlinking = cnt < blinkThresholdBox.Value;
+
                         Invoke((MethodInvoker)(() =>
                         {
-                            blinkCaptureTestForm.SetEye(isBlinking);
+                            blinkCaptureTestForm.SetData(cnt, isBlinking);
+                            bmp.ExtractEye();
                             blinkCaptureTestForm.UpdateImage(bmp);
                         }));
-
-                        isBlinked = isBlinking;
                     }
                 }
             }, token);
@@ -193,8 +198,37 @@ namespace XDReader
         {
             if (observedData != null)
             {
-                File.WriteAllText($"{DateTime.Now:yyyyMMddhhmmss}.csv", string.Join(Environment.NewLine, observedData.Select((b, i) => $"{i},{b}")));
+                File.WriteAllText($"{DateTime.Now:yyyyMMddhhmmss}.txt", string.Join(Environment.NewLine, observedData.Select((b, i) => $"{i},{b}")));
             }
+        }
+    }
+
+    public static class BitmapExt
+    {
+        public static void ExtractEye(this Bitmap bitmap)
+        {
+            var data = bitmap.LockBits(
+                new Rectangle(0, 0, bitmap.Width, bitmap.Height),
+                ImageLockMode.ReadWrite,
+                PixelFormat.Format32bppArgb);
+
+            var buf = new byte[bitmap.Width * bitmap.Height * 4];
+            Marshal.Copy(data.Scan0, buf, 0, buf.Length);
+
+            for (int i = 0; i < buf.Length; i += 4)
+            {
+                var (b, g, r) = (buf[i], buf[i + 1], buf[i + 2]);
+
+                if (r <= g || r <= b || (0.7 * r < g))
+                {
+                    buf[i] = 0;
+                    buf[i + 1] = 0;
+                    buf[i + 2] = 0;
+                }
+            }
+
+            Marshal.Copy(buf, 0, data.Scan0, buf.Length);
+            bitmap.UnlockBits(data);
         }
     }
 

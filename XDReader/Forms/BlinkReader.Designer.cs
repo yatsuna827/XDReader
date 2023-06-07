@@ -39,7 +39,7 @@
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.blinkThresholdBox = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.blinkCoolTimeBox = new System.Windows.Forms.NumericUpDown();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -50,7 +50,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.blankDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blinkResultBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blinkThresholdBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blinkCoolTimeBox)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -176,15 +176,19 @@
             this.label4.TabIndex = 75;
             this.label4.Text = "閾値";
             // 
-            // numericUpDown1
+            // blinkThresholdBox
             // 
-            this.numericUpDown1.DecimalPlaces = 1;
-            this.numericUpDown1.Location = new System.Drawing.Point(204, 27);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(55, 19);
-            this.numericUpDown1.TabIndex = 74;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            80,
+            this.blinkThresholdBox.Location = new System.Drawing.Point(204, 27);
+            this.blinkThresholdBox.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.blinkThresholdBox.Name = "blinkThresholdBox";
+            this.blinkThresholdBox.Size = new System.Drawing.Size(55, 19);
+            this.blinkThresholdBox.TabIndex = 74;
+            this.blinkThresholdBox.Value = new decimal(new int[] {
+            200,
             0,
             0,
             0});
@@ -269,7 +273,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.Button_blink);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.blinkThresholdBox);
             this.Controls.Add(this.blinkCoolTimeBox);
             this.Controls.Add(this.label3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -282,7 +286,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.blankDGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.blinkResultBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blinkThresholdBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.blinkCoolTimeBox)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -303,7 +307,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown blinkCoolTimeBox;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown blinkThresholdBox;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.Label label11;
