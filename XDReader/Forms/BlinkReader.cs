@@ -12,6 +12,9 @@ using System.Windows.Forms;
 using PokemonXDRNGLibrary;
 using PokemonPRNG.LCG32.GCLCG;
 using PokemonXDRNGLibrary.AdvanceSource;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
+using System.IO;
 
 namespace XDReader
 {
@@ -133,7 +136,7 @@ namespace XDReader
             blinkResults = new BindingList<BlinkResult>();
             blinkResultBindingSource.DataSource = blinkResults;
 
-            var detector = new BlinkDetector("./Source/Blink/Eye.png");
+            var detector = new BlinkDetector();
             return Task.Run(() =>
             {
                 var isBlinked = true;
@@ -142,28 +145,24 @@ namespace XDReader
                 var nextFrame = DateTime.Now.Ticks;
                 var resList = new List<int>();
 
-                var frameCounter = 0;
+                var thresh = (int)numericUpDown1.Value;
 
                 while (!token.IsCancellationRequested)
                 {
                     var currentTick = DateTime.Now.Ticks;
                     if (currentTick >= nextFrame)
                     {
-                        frameCounter++;
                         nextFrame += FPS;
 
                         var bmp = captureWindowForm.CaptureScreen();
-                        var isBlinking = !detector.Detect(bmp);
-                        if(isBlinking && !isBlinked)
+                        var cnt = detector.Count(bmp);
+                        var isBlinking = cnt < thresh;
+                        if (isBlinking && !isBlinked)
                         {
-                            Invoke((MethodInvoker)(() =>
-                            {
-                                if (blinkCount < n) Console.Beep();
-                                if (blinkCount > 0) resList.Add(frameCounter);
-                                blinkResults.Add(new BlinkResult(blinkCount++, frameCounter));
-                            }));
+                            var frames = (currentTick - prevTick).TickToFrame(29.97 * 2);
+                            if (blinkCount > 0) resList.Add(frames);
+                            AddBlink(blinkCount++, frames);
                             prevTick = currentTick;
-                            frameCounter = 0;
                         }
                         isBlinked = isBlinking;
 
@@ -174,6 +173,16 @@ namespace XDReader
                 lastTick = prevTick;
                 return (blinkCount == n + 1, resList.ToArray());
             }, token);
+        }
+
+        // UIにフィードバックするためにInvokeを呼ぶ必要があるが、Invokeは重い。
+        // 「Invokeする処理」自体を非同期で呼び出すことで処理速度を安定させる。
+        private Task AddBlink(int blinkCount, int frameCounter)
+        {
+            return Task.Run(() => Invoke((MethodInvoker)(() => {
+                Console.Beep();
+                blinkResults.Add(new BlinkResult(blinkCount, frameCounter));
+            })));
         }
 
         private Task SearchSeedAsync(uint currentSeed, uint targetSeed, BlinkSeedSearch blinkSeedSearch)
@@ -217,27 +226,36 @@ namespace XDReader
 
         private Task CaptureTestAsync(CancellationToken token)
         {
-            var detector = new BlinkDetector("./Source/Blink/Eye.png");
+            var detector = new BlinkDetector();
             return Task.Run(() =>
             {
                 var isBlinked = true;
                 var nextFrame = DateTime.Now.Ticks;
+                var list = new List<long>();
                 while (!token.IsCancellationRequested)
                 {
-                    if (DateTime.Now.Ticks >= nextFrame)
+                    var current = DateTime.Now.Ticks;
+                    if (current >= nextFrame)
                     {
                         nextFrame += FPS;
+                        list.Add(current);
 
                         var bmp = captureWindowForm.CaptureScreen();
-                        var isBlinking = !detector.Detect(bmp);
+                        var cnt = detector.Count(bmp);
+                        var isBlinking = cnt < numericUpDown1.Value;
                         Invoke((MethodInvoker)(() =>
                         {
-                            blinkCaptureTestForm.SetEye(isBlinking);
-                            blinkCaptureTestForm.UpdateImage(bmp);
+                            blinkCaptureTestForm.SetData(cnt, isBlinking);
+                            blinkCaptureTestForm.UpdateImage(bmp.ExtractEye());
                         }));
 
                         isBlinked = isBlinking;
                     }
+
+                    Invoke((MethodInvoker)(() =>
+                    {
+                        File.WriteAllText("./data.txt", string.Join(Environment.NewLine, list));
+                    }));
                 }
             }, token);
         }
@@ -304,4 +322,37 @@ namespace XDReader
 
         public BlinkResult(int i, int blank) => Blank = (Index = i) == 0 ? "---" : blank.ToString();
     }
+
+
+    public static class BitmapExt
+    {
+        public static Bitmap ExtractEye(this Bitmap bitmap)
+        {
+            var data = bitmap.LockBits(
+                new Rectangle(0, 0, bitmap.Width, bitmap.Height),
+                ImageLockMode.ReadWrite,
+                PixelFormat.Format32bppArgb);
+
+            var buf = new byte[bitmap.Width * bitmap.Height * 4];
+            Marshal.Copy(data.Scan0, buf, 0, buf.Length);
+
+            for (int i = 0; i < buf.Length; i += 4)
+            {
+                var (b, g, r) = (buf[i], buf[i + 1], buf[i + 2]);
+
+                if (r <= g || r <= b || (0.7 * r < g))
+                {
+                    buf[i] = 0;
+                    buf[i + 1] = 0;
+                    buf[i + 2] = 0;
+                }
+            }
+
+            Marshal.Copy(buf, 0, data.Scan0, buf.Length);
+            bitmap.UnlockBits(data);
+
+            return bitmap;
+        }
+    }
+
 }

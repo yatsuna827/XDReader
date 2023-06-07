@@ -49,20 +49,20 @@
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.label2 = new System.Windows.Forms.Label();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.SwitchCaptureFrameVisibleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.CaptureTestMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label3 = new System.Windows.Forms.Label();
-            this.blinkCoolTimeBox = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
-            this.breakingTimeBox = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.label2 = new System.Windows.Forms.Label();
+            this.blinkCoolTimeBox = new System.Windows.Forms.NumericUpDown();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.SwitchCaptureFrameVisibleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CaptureTestMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label5 = new System.Windows.Forms.Label();
+            this.breakingTimeBox = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
             this.targetSeedBox = new XDReader.SeedBox();
             this.currentSeedBox = new XDReader.SeedBox();
@@ -77,11 +77,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.aboutCurrentFrameBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BlinkResultDGV)).BeginInit();
             this.groupBox1.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.blinkCoolTimeBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.breakingTimeBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blinkCoolTimeBox)).BeginInit();
+            this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.breakingTimeBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blinkResultBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -178,7 +178,7 @@
             // 
             // Button_blink
             // 
-            this.Button_blink.Location = new System.Drawing.Point(328, 123);
+            this.Button_blink.Location = new System.Drawing.Point(476, 162);
             this.Button_blink.Name = "Button_blink";
             this.Button_blink.Size = new System.Drawing.Size(75, 37);
             this.Button_blink.TabIndex = 52;
@@ -331,7 +331,6 @@
             this.groupBox1.Controls.Add(this.numericUpDown1);
             this.groupBox1.Controls.Add(this.currentSeedBox);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.Button_blink);
             this.groupBox1.Controls.Add(this.radioButton3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.blinkCoolTimeBox);
@@ -349,130 +348,10 @@
             this.groupBox1.Controls.Add(this.label15);
             this.groupBox1.Location = new System.Drawing.Point(133, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(418, 172);
+            this.groupBox1.Size = new System.Drawing.Size(332, 172);
             this.groupBox1.TabIndex = 69;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "条件入力";
-            // 
-            // radioButton3
-            // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(20, 147);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(47, 16);
-            this.radioButton3.TabIndex = 71;
-            this.radioButton3.Text = "禁断";
-            this.radioButton3.UseVisualStyleBackColor = true;
-            this.radioButton3.Visible = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 75);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 12);
-            this.label2.TabIndex = 70;
-            this.label2.Text = "検索範囲";
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.SwitchCaptureFrameVisibleMenuItem,
-            this.CaptureTestMenuItem,
-            ShootMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(566, 24);
-            this.menuStrip1.TabIndex = 70;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // SwitchCaptureFrameVisibleMenuItem
-            // 
-            this.SwitchCaptureFrameVisibleMenuItem.Name = "SwitchCaptureFrameVisibleMenuItem";
-            this.SwitchCaptureFrameVisibleMenuItem.Size = new System.Drawing.Size(97, 20);
-            this.SwitchCaptureFrameVisibleMenuItem.Text = "キャプチャ枠表示";
-            this.SwitchCaptureFrameVisibleMenuItem.Click += new System.EventHandler(this.SwitchCaptureFrameVisibleMenuItem_Click);
-            // 
-            // CaptureTestMenuItem
-            // 
-            this.CaptureTestMenuItem.Name = "CaptureTestMenuItem";
-            this.CaptureTestMenuItem.Size = new System.Drawing.Size(111, 20);
-            this.CaptureTestMenuItem.Text = "キャプチャテスト開始";
-            this.CaptureTestMenuItem.Click += new System.EventHandler(this.CaptureTestMenuItem_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(194, 75);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(50, 12);
-            this.label3.TabIndex = 73;
-            this.label3.Text = "瞬き間隔";
-            // 
-            // blinkCoolTimeBox
-            // 
-            this.blinkCoolTimeBox.Location = new System.Drawing.Point(250, 73);
-            this.blinkCoolTimeBox.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.blinkCoolTimeBox.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.blinkCoolTimeBox.Name = "blinkCoolTimeBox";
-            this.blinkCoolTimeBox.Size = new System.Drawing.Size(55, 19);
-            this.blinkCoolTimeBox.TabIndex = 72;
-            this.blinkCoolTimeBox.Value = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(215, 25);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(29, 12);
-            this.label4.TabIndex = 75;
-            this.label4.Text = "閾値";
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.DecimalPlaces = 1;
-            this.numericUpDown1.Location = new System.Drawing.Point(250, 23);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(55, 19);
-            this.numericUpDown1.TabIndex = 74;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            80,
-            0,
-            0,
-            0});
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(459, 340);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(53, 12);
-            this.label5.TabIndex = 77;
-            this.label5.Text = "制動時間";
-            // 
-            // breakingTimeBox
-            // 
-            this.breakingTimeBox.Location = new System.Drawing.Point(496, 365);
-            this.breakingTimeBox.Maximum = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
-            this.breakingTimeBox.Name = "breakingTimeBox";
-            this.breakingTimeBox.Size = new System.Drawing.Size(55, 19);
-            this.breakingTimeBox.TabIndex = 76;
             // 
             // label9
             // 
@@ -519,6 +398,130 @@
             this.label11.Size = new System.Drawing.Size(65, 12);
             this.label11.TabIndex = 78;
             this.label11.Text = "画面拡大率";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(215, 25);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(29, 12);
+            this.label4.TabIndex = 75;
+            this.label4.Text = "閾値";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(250, 23);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(55, 19);
+            this.numericUpDown1.TabIndex = 74;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            70,
+            0,
+            0,
+            0});
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(194, 75);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(50, 12);
+            this.label3.TabIndex = 73;
+            this.label3.Text = "瞬き間隔";
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(20, 147);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(47, 16);
+            this.radioButton3.TabIndex = 71;
+            this.radioButton3.Text = "禁断";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            this.radioButton3.Visible = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(18, 75);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.TabIndex = 70;
+            this.label2.Text = "検索範囲";
+            // 
+            // blinkCoolTimeBox
+            // 
+            this.blinkCoolTimeBox.Location = new System.Drawing.Point(250, 73);
+            this.blinkCoolTimeBox.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.blinkCoolTimeBox.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.blinkCoolTimeBox.Name = "blinkCoolTimeBox";
+            this.blinkCoolTimeBox.Size = new System.Drawing.Size(55, 19);
+            this.blinkCoolTimeBox.TabIndex = 72;
+            this.blinkCoolTimeBox.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SwitchCaptureFrameVisibleMenuItem,
+            this.CaptureTestMenuItem,
+            ShootMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(566, 24);
+            this.menuStrip1.TabIndex = 70;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // SwitchCaptureFrameVisibleMenuItem
+            // 
+            this.SwitchCaptureFrameVisibleMenuItem.Name = "SwitchCaptureFrameVisibleMenuItem";
+            this.SwitchCaptureFrameVisibleMenuItem.Size = new System.Drawing.Size(97, 20);
+            this.SwitchCaptureFrameVisibleMenuItem.Text = "キャプチャ枠表示";
+            this.SwitchCaptureFrameVisibleMenuItem.Click += new System.EventHandler(this.SwitchCaptureFrameVisibleMenuItem_Click);
+            // 
+            // CaptureTestMenuItem
+            // 
+            this.CaptureTestMenuItem.Name = "CaptureTestMenuItem";
+            this.CaptureTestMenuItem.Size = new System.Drawing.Size(111, 20);
+            this.CaptureTestMenuItem.Text = "キャプチャテスト開始";
+            this.CaptureTestMenuItem.Click += new System.EventHandler(this.CaptureTestMenuItem_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(459, 340);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(53, 12);
+            this.label5.TabIndex = 77;
+            this.label5.Text = "制動時間";
+            // 
+            // breakingTimeBox
+            // 
+            this.breakingTimeBox.Location = new System.Drawing.Point(496, 365);
+            this.breakingTimeBox.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.breakingTimeBox.Name = "breakingTimeBox";
+            this.breakingTimeBox.Size = new System.Drawing.Size(55, 19);
+            this.breakingTimeBox.TabIndex = 76;
             // 
             // label12
             // 
@@ -587,6 +590,7 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.breakingTimeBox);
+            this.Controls.Add(this.Button_blink);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
@@ -602,12 +606,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.BlinkResultDGV)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blinkCoolTimeBox)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.blinkCoolTimeBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.breakingTimeBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.blinkResultBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

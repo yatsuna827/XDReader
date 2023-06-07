@@ -1,34 +1,34 @@
 ﻿using System;
 using System.Drawing;
-
-using OpenCvSharp;
-using OpenCvSharp.Extensions;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 
 namespace XDReader
 {
-    class BlinkDetector : IDisposable
+    class BlinkDetector
     {
-        private readonly Mat eye;
-        private readonly double thresh = .80;
-
-        public BlinkDetector(string src, double thresh = 0.8)
+        public int Count(Bitmap capturedPicture)
         {
-            eye = new Mat(src);
-            this.thresh = thresh;
-        }
+            var data = capturedPicture.LockBits(
+                new Rectangle(0, 0, capturedPicture.Width, capturedPicture.Height),
+                ImageLockMode.ReadOnly,
+                PixelFormat.Format32bppArgb);
 
-        public bool Detect(Bitmap capturedPicture)
-        {
-            using (var mat = BitmapConverter.ToMat(capturedPicture).CvtColor(ColorConversionCodes.BGRA2BGR))
-            using (var res = new Mat())
+            var buf = new byte[capturedPicture.Width * capturedPicture.Height * 4];
+            Marshal.Copy(data.Scan0, buf, 0, buf.Length);
+
+            var cnt = 0;
+            for (int i = 0; i < buf.Length; i += 4)
             {
-                Cv2.MatchTemplate(mat, eye, res, TemplateMatchModes.CCoeffNormed);
-                Cv2.MinMaxLoc(res, out _, out double maxval);
+                var (b, g, r) = (buf[i], buf[i + 1], buf[i + 2]);
 
-                return maxval >= thresh;
+                if (!(r <= g || r <= b || (0.7 * r < g)))
+                    cnt++;
             }
-        }
 
-        public void Dispose() => eye.Dispose();
+            capturedPicture.UnlockBits(data);
+
+            return cnt;
+        }
     }
 }

@@ -30,8 +30,7 @@
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.faceBox = new System.Windows.Forms.TextBox();
-            this.battleTeamBox = new System.Windows.Forms.TextBox();
-            this.playerNameBox = new System.Windows.Forms.TextBox();
+            this.dotCountBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,27 +51,19 @@
             this.faceBox.Size = new System.Drawing.Size(39, 19);
             this.faceBox.TabIndex = 68;
             // 
-            // battleTeamBox
+            // dotCountBox
             // 
-            this.battleTeamBox.Location = new System.Drawing.Point(91, 12);
-            this.battleTeamBox.Name = "battleTeamBox";
-            this.battleTeamBox.Size = new System.Drawing.Size(73, 19);
-            this.battleTeamBox.TabIndex = 72;
-            // 
-            // playerNameBox
-            // 
-            this.playerNameBox.Location = new System.Drawing.Point(12, 12);
-            this.playerNameBox.Name = "playerNameBox";
-            this.playerNameBox.Size = new System.Drawing.Size(73, 19);
-            this.playerNameBox.TabIndex = 71;
+            this.dotCountBox.Location = new System.Drawing.Point(57, 12);
+            this.dotCountBox.Name = "dotCountBox";
+            this.dotCountBox.Size = new System.Drawing.Size(73, 19);
+            this.dotCountBox.TabIndex = 72;
             // 
             // CaptureTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(458, 412);
-            this.Controls.Add(this.battleTeamBox);
-            this.Controls.Add(this.playerNameBox);
+            this.Controls.Add(this.dotCountBox);
             this.Controls.Add(this.faceBox);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -92,7 +83,6 @@
 
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox faceBox;
-        private System.Windows.Forms.TextBox battleTeamBox;
-        private System.Windows.Forms.TextBox playerNameBox;
+        private System.Windows.Forms.TextBox dotCountBox;
     }
 }
