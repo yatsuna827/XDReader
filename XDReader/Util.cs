@@ -17,6 +17,6 @@ namespace XDReader
         public static readonly string[] TrainerName = { "レオ", "ユータ", "タツキ" };
         public static readonly string[] TeamName = { "バシャーモ", "エンテイ", "ラグラージ", "ライコウ", "メガニウム", "スイクン", "メタグロス", "ヘラクロス" };
 
-        public static int TickToFrame(this long tick, double frequency) => (int)(tick / 10_000_000 * frequency);
+        public static int TickToFrame(this long tick, double frequency) => (int)(tick * frequency / 10_000_000 );
     }
 }

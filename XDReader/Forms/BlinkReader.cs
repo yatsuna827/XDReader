@@ -140,6 +140,7 @@ namespace XDReader
             return Task.Run(() =>
             {
                 var isBlinked = true;
+                var prevCount = 0;
                 var blinkCount = 0;
                 var prevTick = 0L;
                 var nextFrame = DateTime.Now.Ticks;
@@ -156,7 +157,7 @@ namespace XDReader
 
                         var bmp = captureWindowForm.CaptureScreen();
                         var cnt = detector.Count(bmp);
-                        var isBlinking = cnt < thresh;
+                        var isBlinking = (prevCount - cnt > 20) && cnt < thresh;
                         if (isBlinking && !isBlinked)
                         {
                             var frames = (currentTick - prevTick).TickToFrame(29.97 * 2);
@@ -165,6 +166,7 @@ namespace XDReader
                             prevTick = currentTick;
                         }
                         isBlinked = isBlinking;
+                        prevCount = cnt;
 
                         if (blinkCount > n) break;
                     }
@@ -230,19 +232,20 @@ namespace XDReader
             return Task.Run(() =>
             {
                 var isBlinked = true;
+                var prevCount = 0;
                 var nextFrame = DateTime.Now.Ticks;
-                var list = new List<long>();
+                var list = new List<int>();
                 while (!token.IsCancellationRequested)
                 {
                     var current = DateTime.Now.Ticks;
                     if (current >= nextFrame)
                     {
                         nextFrame += FPS;
-                        list.Add(current);
 
                         var bmp = captureWindowForm.CaptureScreen();
                         var cnt = detector.Count(bmp);
-                        var isBlinking = cnt < numericUpDown1.Value;
+                        list.Add(cnt);
+                        var isBlinking = (prevCount - cnt > 20) && cnt < numericUpDown1.Value;
                         Invoke((MethodInvoker)(() =>
                         {
                             blinkCaptureTestForm.SetData(cnt, isBlinking);
@@ -250,13 +253,14 @@ namespace XDReader
                         }));
 
                         isBlinked = isBlinking;
+                        prevCount = cnt;
                     }
-
-                    Invoke((MethodInvoker)(() =>
-                    {
-                        File.WriteAllText("./data.txt", string.Join(Environment.NewLine, list));
-                    }));
                 }
+
+                Invoke((MethodInvoker)(() =>
+                {
+                    File.WriteAllText($"./{DateTime.Now.Millisecond}.txt", string.Join(Environment.NewLine, list));
+                }));
             }, token);
         }
 
@@ -313,6 +317,7 @@ namespace XDReader
         {
             CaptureWindowForm.DisplayScale = (int)numericUpDown2.Value;
         }
+
     }
 
     public class BlinkResult
