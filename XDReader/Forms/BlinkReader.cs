@@ -76,22 +76,17 @@ namespace XDReader
 
                 var currentSeed = currentSeedBox.Seed;
                 var targetSeed = targetSeedBox.Seed;
-                var mid = (uint)aboutCurrentFrameBox.Value;
-                var range = (uint)frameRangeBox.Value;
+                var min = (uint)minFrameBox.Value;
+                var max = (uint)maxFrameBox.Value;
                 var error = (int)allowableErrorBox.Value;
+                var magnification = (int)blankMagnificationBox.Value / 100.0;
                 var cool = (int)blinkCoolTimeBox.Value;
 
-                var min = mid >= range ? mid - range : 0u;
-                var max = (mid + range) >= mid ? (mid + range) : 0xFFFFFFFF; // オーバーフローしてたら上限で止める.
-
-                BlinkSeedSearch bs = radioButton1.Checked 
-                        ? (BlinkSeedSearch)(() => SeedFinder.FindCurrentSeedByBlink(currentSeed, min, max, blinks, error, cool))
-                        : () => SeedFinder.FindCurrentSeedByBlinkFaster(currentSeed, min, max, blinks, error, cool);
-
-                if (radioButton3.Checked) 
-                    await SearchSeedAllRangeAsync(currentSeed, targetSeed, blinks, error, cool);
-                else
-                    await SearchSeedAsync(currentSeed, targetSeed, bs);
+                await SearchSeedAsync(currentSeed, targetSeed, () => SeedFinder.FindCurrentSeedByBlinkFaster(currentSeed, min, max, blinks,
+                        coolTime: cool,
+                        allowanceLimitOfError: error,
+                        blankMagnification: magnification)
+                );
                 Button_blink.Enabled = true;
             }
             cancellationTokenSource = null;
@@ -157,7 +152,7 @@ namespace XDReader
 
                         var bmp = captureWindowForm.CaptureScreen();
                         var cnt = detector.Count(bmp);
-                        var isBlinking = (prevCount - cnt > 20) && cnt < thresh;
+                        var isBlinking = cnt < thresh;
                         if (isBlinking && !isBlinked)
                         {
                             var frames = (currentTick - prevTick).TickToFrame(29.97 * 2);
@@ -204,28 +199,6 @@ namespace XDReader
             });
         }
 
-        private Task SearchSeedAllRangeAsync(uint currentSeed, uint targetSeed, int[] blinks, int error, int cooltime)
-        {
-            return Task.Run(() =>
-            {
-                Parallel.For(0, 8, (i) =>
-                {
-                    uint min = (uint)(0x20000000u * i);
-                    uint max = min + 0x1fffffffu;
-                    foreach (var seed in SeedFinder.FindCurrentSeedByBlinkFaster(0, min, max, blinks, error, cooltime).AsParallel())
-                    {
-                        Invoke((MethodInvoker)(() =>
-                        {
-                            var row = new DataGridViewRow();
-                            row.CreateCells(BlinkResultDGV);
-                            row.SetValues($"{seed.GetIndex(currentSeed)}", $"{seed:X8}", $"{targetSeed.GetIndex(seed)}");
-                            BlinkResultDGV.Rows.Add(row);
-                        }));
-                    }
-                });
-            });
-        }
-
         private Task CaptureTestAsync(CancellationToken token)
         {
             var detector = new BlinkDetector();
@@ -245,7 +218,7 @@ namespace XDReader
                         var bmp = captureWindowForm.CaptureScreen();
                         var cnt = detector.Count(bmp);
                         list.Add(cnt);
-                        var isBlinking = (prevCount - cnt > 20) && cnt < numericUpDown1.Value;
+                        var isBlinking = cnt < numericUpDown1.Value;
                         Invoke((MethodInvoker)(() =>
                         {
                             blinkCaptureTestForm.SetData(cnt, isBlinking);

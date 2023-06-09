@@ -64,8 +64,8 @@
     <Reference Include="PokemonStandardLibrary.Gen3, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PokemonStandardLibrary.Gen3.1.2.0\lib\netstandard2.0\PokemonStandardLibrary.Gen3.dll</HintPath>
     </Reference>
-    <Reference Include="PokemonXDRNGLibrary, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PokemonXDRNGLibrary.0.2.0\lib\netstandard2.0\PokemonXDRNGLibrary.dll</HintPath>
+    <Reference Include="PokemonXDRNGLibrary, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PokemonXDRNGLibrary.0.3.0-alpha.1\lib\netstandard2.0\PokemonXDRNGLibrary.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
