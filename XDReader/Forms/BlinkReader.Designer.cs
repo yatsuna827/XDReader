@@ -45,29 +45,32 @@
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.delayAtMaturityBox = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.blinkCoolTimeBox = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.blinkCoolTimeBox = new System.Windows.Forms.NumericUpDown();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.SwitchCaptureFrameVisibleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CaptureTestMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label5 = new System.Windows.Forms.Label();
             this.breakingTimeBox = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.targetSeedBox = new XDReader.SeedBox();
             this.currentSeedBox = new XDReader.SeedBox();
             this.indexDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.blankDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.blinkResultBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.blankMagnificationBox = new System.Windows.Forms.NumericUpDown();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
             ShootMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.blinkCountBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.allowableErrorBox)).BeginInit();
@@ -76,13 +79,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.minFrameBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BlinkResultDGV)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.delayAtMaturityBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blinkCoolTimeBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.blinkCoolTimeBox)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.breakingTimeBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blinkResultBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.blankMagnificationBox)).BeginInit();
             this.SuspendLayout();
             // 
             // ShootMenuItem
@@ -104,7 +107,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(471, 122);
+            this.label10.Location = new System.Drawing.Point(476, 122);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(50, 12);
             this.label10.TabIndex = 58;
@@ -112,7 +115,7 @@
             // 
             // blinkCountBox
             // 
-            this.blinkCountBox.Location = new System.Drawing.Point(471, 137);
+            this.blinkCountBox.Location = new System.Drawing.Point(476, 137);
             this.blinkCountBox.Maximum = new decimal(new int[] {
             16,
             0,
@@ -171,7 +174,7 @@
             this.allowableErrorBox.Size = new System.Drawing.Size(55, 19);
             this.allowableErrorBox.TabIndex = 53;
             this.allowableErrorBox.Value = new decimal(new int[] {
-            60,
+            20,
             0,
             0,
             0});
@@ -221,7 +224,7 @@
             this.maxFrameBox.Size = new System.Drawing.Size(100, 19);
             this.maxFrameBox.TabIndex = 50;
             this.maxFrameBox.Value = new decimal(new int[] {
-            100000,
+            800000,
             0,
             0,
             0});
@@ -237,6 +240,11 @@
             this.minFrameBox.Name = "minFrameBox";
             this.minFrameBox.Size = new System.Drawing.Size(99, 19);
             this.minFrameBox.TabIndex = 49;
+            this.minFrameBox.Value = new decimal(new int[] {
+            550000,
+            0,
+            0,
+            0});
             // 
             // BlinkResultDGV
             // 
@@ -248,7 +256,8 @@
             this.BlinkResultDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn8,
             this.dataGridViewTextBoxColumn6,
-            this.Column7});
+            this.Column7,
+            this.Column1});
             this.BlinkResultDGV.Location = new System.Drawing.Point(133, 204);
             this.BlinkResultDGV.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.BlinkResultDGV.Name = "BlinkResultDGV";
@@ -257,7 +266,7 @@
             this.BlinkResultDGV.RowHeadersWidth = 82;
             this.BlinkResultDGV.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.BlinkResultDGV.RowTemplate.Height = 33;
-            this.BlinkResultDGV.Size = new System.Drawing.Size(316, 184);
+            this.BlinkResultDGV.Size = new System.Drawing.Size(418, 184);
             this.BlinkResultDGV.TabIndex = 47;
             this.BlinkResultDGV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.BlinkResultDGV_CellDoubleClick);
             // 
@@ -285,11 +294,18 @@
             this.Column7.Name = "Column7";
             this.Column7.ReadOnly = true;
             // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "5000消費後";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column1.Width = 110;
+            // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label14);
-            this.groupBox1.Controls.Add(this.blankMagnificationBox);
-            this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.delayAtMaturityBox);
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.targetSeedBox);
             this.groupBox1.Controls.Add(this.currentSeedBox);
             this.groupBox1.Controls.Add(this.label3);
@@ -309,77 +325,31 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "条件入力";
             // 
-            // label9
+            // delayAtMaturityBox
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(535, 57);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(11, 12);
-            this.label9.TabIndex = 80;
-            this.label9.Text = "%";
-            // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.Increment = new decimal(new int[] {
-            25,
+            this.delayAtMaturityBox.Location = new System.Drawing.Point(250, 123);
+            this.delayAtMaturityBox.Maximum = new decimal(new int[] {
+            60,
             0,
             0,
             0});
-            this.numericUpDown2.Location = new System.Drawing.Point(471, 54);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
-            200,
+            this.delayAtMaturityBox.Name = "delayAtMaturityBox";
+            this.delayAtMaturityBox.Size = new System.Drawing.Size(55, 19);
+            this.delayAtMaturityBox.TabIndex = 74;
+            this.delayAtMaturityBox.Value = new decimal(new int[] {
+            5,
             0,
             0,
             0});
-            this.numericUpDown2.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(55, 19);
-            this.numericUpDown2.TabIndex = 79;
-            this.numericUpDown2.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.numericUpDown2.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
             // 
-            // label11
+            // label1
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(471, 39);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(65, 12);
-            this.label11.TabIndex = 78;
-            this.label11.Text = "画面拡大率";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(471, 80);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(29, 12);
-            this.label4.TabIndex = 75;
-            this.label4.Text = "閾値";
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(471, 95);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(55, 19);
-            this.numericUpDown1.TabIndex = 74;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            70,
-            0,
-            0,
-            0});
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(169, 125);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(75, 12);
+            this.label1.TabIndex = 75;
+            this.label1.Text = "満期時の遅延";
             // 
             // label3
             // 
@@ -421,6 +391,78 @@
             0,
             0});
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(540, 57);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(11, 12);
+            this.label9.TabIndex = 80;
+            this.label9.Text = "%";
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Increment = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Location = new System.Drawing.Point(476, 54);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(55, 19);
+            this.numericUpDown2.TabIndex = 79;
+            this.numericUpDown2.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numericUpDown2.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(476, 39);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(65, 12);
+            this.label11.TabIndex = 78;
+            this.label11.Text = "画面拡大率";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(476, 80);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(29, 12);
+            this.label4.TabIndex = 75;
+            this.label4.Text = "閾値";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(476, 95);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(55, 19);
+            this.numericUpDown1.TabIndex = 74;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            120,
+            0,
+            0,
+            0});
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -429,7 +471,7 @@
             ShootMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(566, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(723, 24);
             this.menuStrip1.TabIndex = 70;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -450,7 +492,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(459, 340);
+            this.label5.Location = new System.Drawing.Point(598, 209);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 12);
             this.label5.TabIndex = 77;
@@ -458,7 +500,7 @@
             // 
             // breakingTimeBox
             // 
-            this.breakingTimeBox.Location = new System.Drawing.Point(496, 365);
+            this.breakingTimeBox.Location = new System.Drawing.Point(641, 224);
             this.breakingTimeBox.Maximum = new decimal(new int[] {
             500,
             0,
@@ -471,11 +513,43 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(459, 304);
+            this.label12.Location = new System.Drawing.Point(604, 352);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(102, 24);
             this.label12.TabIndex = 78;
             this.label12.Text = "セルをダブルクリックで\r\nタイマー起動";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(557, 162);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 37);
+            this.button1.TabIndex = 81;
+            this.button1.Text = "観測する";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(638, 162);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(58, 35);
+            this.button2.TabIndex = 82;
+            this.button2.Text = "おまけ";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(600, 249);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(110, 16);
+            this.checkBox1.TabIndex = 78;
+            this.checkBox1.Text = "瞬きごとに遅らせる";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // targetSeedBox
             // 
@@ -484,7 +558,7 @@
             this.targetSeedBox.Name = "targetSeedBox";
             this.targetSeedBox.Size = new System.Drawing.Size(64, 19);
             this.targetSeedBox.TabIndex = 73;
-            this.targetSeedBox.Text = "19F0033A";
+            this.targetSeedBox.Text = "9DB8D440";
             this.targetSeedBox.ZeroPadding = false;
             // 
             // currentSeedBox
@@ -494,7 +568,7 @@
             this.currentSeedBox.Name = "currentSeedBox";
             this.currentSeedBox.Size = new System.Drawing.Size(64, 19);
             this.currentSeedBox.TabIndex = 72;
-            this.currentSeedBox.Text = "787AE45";
+            this.currentSeedBox.Text = "0";
             this.currentSeedBox.ZeroPadding = false;
             // 
             // indexDataGridViewTextBoxColumn
@@ -523,56 +597,14 @@
             // 
             this.blinkResultBindingSource.DataSource = typeof(XDReader.BlinkResult);
             // 
-            // blankMagnificationBox
-            // 
-            this.blankMagnificationBox.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.blankMagnificationBox.Location = new System.Drawing.Point(250, 123);
-            this.blankMagnificationBox.Maximum = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
-            this.blankMagnificationBox.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.blankMagnificationBox.Name = "blankMagnificationBox";
-            this.blankMagnificationBox.Size = new System.Drawing.Size(55, 19);
-            this.blankMagnificationBox.TabIndex = 74;
-            this.blankMagnificationBox.Value = new decimal(new int[] {
-            110,
-            0,
-            0,
-            0});
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(191, 125);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(53, 12);
-            this.label13.TabIndex = 75;
-            this.label13.Text = "延長倍率";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(311, 126);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(11, 12);
-            this.label14.TabIndex = 81;
-            this.label14.Text = "%";
-            // 
             // BlinkReader
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(566, 396);
+            this.ClientSize = new System.Drawing.Size(723, 396);
+            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label12);
@@ -593,7 +625,7 @@
             this.MaximizeBox = false;
             this.Name = "BlinkReader";
             this.ShowIcon = false;
-            this.Text = "BlinkReader";
+            this.Text = "DusclopsBlinkReader";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BlinkReader_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.blinkCountBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.allowableErrorBox)).EndInit();
@@ -603,14 +635,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.BlinkResultDGV)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.delayAtMaturityBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blinkCoolTimeBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.blinkCoolTimeBox)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.breakingTimeBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.blinkResultBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.blankMagnificationBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -637,9 +669,6 @@
         private System.Windows.Forms.ToolStripMenuItem SwitchCaptureFrameVisibleMenuItem;
         private System.Windows.Forms.ToolStripMenuItem CaptureTestMenuItem;
         private System.Windows.Forms.BindingSource blinkResultBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown blinkCoolTimeBox;
         private SeedBox targetSeedBox;
@@ -652,8 +681,14 @@
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.NumericUpDown blankMagnificationBox;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.NumericUpDown delayAtMaturityBox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
     }
 }

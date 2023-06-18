@@ -8,7 +8,7 @@
     <ProjectGuid>{F6A4FED2-F5FD-4858-87FE-C40EADFAB646}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>XDReader</RootNamespace>
-    <AssemblyName>XDReader</AssemblyName>
+    <AssemblyName>DusclopsBlinkReader</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -16,6 +16,21 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -55,8 +70,8 @@
     <Reference Include="PokemonCOSeedDataBaseAPI">
       <HintPath>..\..\PokemonCOSeedDataBaseAPI\PokemonCOSeedDataBaseAPI\bin\Release\PokemonCOSeedDataBaseAPI.dll</HintPath>
     </Reference>
-    <Reference Include="PokemonPRNG, Version=3.6.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PokemonPRNG.3.6.2\lib\netstandard2.0\PokemonPRNG.dll</HintPath>
+    <Reference Include="PokemonPRNG, Version=3.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PokemonPRNG.3.7.1\lib\netstandard2.0\PokemonPRNG.dll</HintPath>
     </Reference>
     <Reference Include="PokemonStandardLibrary, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PokemonStandardLibrary.1.4.0\lib\netstandard2.0\PokemonStandardLibrary.dll</HintPath>
@@ -65,7 +80,7 @@
       <HintPath>..\packages\PokemonStandardLibrary.Gen3.1.2.0\lib\netstandard2.0\PokemonStandardLibrary.Gen3.dll</HintPath>
     </Reference>
     <Reference Include="PokemonXDRNGLibrary, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PokemonXDRNGLibrary.0.3.0-alpha.1\lib\netstandard2.0\PokemonXDRNGLibrary.dll</HintPath>
+      <HintPath>..\packages\PokemonXDRNGLibrary.0.3.0-alpha.3\lib\netstandard2.0\PokemonXDRNGLibrary.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
@@ -231,6 +246,12 @@
     <Compile Include="Forms\BlinkTimer.Designer.cs">
       <DependentUpon>BlinkTimer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Greevil.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Greevil.Designer.cs">
+      <DependentUpon>Greevil.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SeedBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -273,6 +294,9 @@
     <EmbeddedResource Include="Forms\CaptureWindowForm.resx">
       <DependentUpon>CaptureWindowForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Greevil.resx">
+      <DependentUpon>Greevil.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -304,7 +328,18 @@
     <None Include="Resources\beep-07a.wav" />
     <Content Include="icon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 および x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -14,7 +14,7 @@ namespace XDReader
 {
     public partial class BlinkTimer : Form
     {
-        public BlinkTimer(int[] timeline, int breakingFrames = 0, double frequency = 29.97 * 2, long baseTick = 0)
+        public BlinkTimer(int[] timeline, int coolTime, int framesPerDelay = -1, int breakingFrames = 0, double frequency = 29.97 * 2, long baseTick = 0)
         {
             InitializeComponent();
 
@@ -34,10 +34,14 @@ namespace XDReader
             beepPlayer = new SoundPlayer(Properties.Resources.beep_07a);
 
             this.baseTick = baseTick;
+            _rollbackFrames = 10 + coolTime;
+            _framesPerDelay = framesPerDelay;
         }
 
         private readonly SoundPlayer blinkSoundPlayer, beepPlayer;
 
+        private readonly int _framesPerDelay;
+        private readonly int _rollbackFrames;
         private readonly int breakingFrames;
         private readonly int beepCount = 5;
         private readonly double frequency;
@@ -78,7 +82,7 @@ namespace XDReader
         private void MainLoop()
         {
             var terminal = checkPoints.Last() - breakingFrames;
-            var interval = 10_000_000 / frequency;
+            var interval = 10_000_000 / frequency; // ticks per frames
 
             var rows = dataGridView1.Rows;
             using (var graphic = pictureBox1.CreateGraphics())
@@ -88,6 +92,7 @@ namespace XDReader
 
                 var start = DateTime.Now.Ticks;
                 var nextFrame = start + interval;
+                var nextDelay = start + interval * _framesPerDelay; // 一定フレームごとに遅延を考慮して遅らせる
 
                 var nextBeep = beepCount - 1; // もしかしたらここも
                 int frameCount = baseTick > 0 ?
@@ -116,12 +121,21 @@ namespace XDReader
 
                             // 残り時間の更新
                             var rem = terminal + buffer - frameCount;
+
+                            // 終了間際の場合は遅延考慮処理をしない
+                            // タイマーがバグるので…。
+                            if (rem > 30 && _framesPerDelay != -1 && tick >= nextDelay)
+                            {
+                                UpdateBufferAsync(1);
+                                nextDelay += interval * _framesPerDelay;
+                            }
+
                             if (rem >= 0)
                                 Task.Run(() => { try { Invoke((MethodInvoker)(() => UpdateTime(rem))); } catch { } });
 
                             // タイマーのバーの描画 ---
 
-                            var beOverSoon = rem / frequency < beepCount - 1;
+                            var beOverSoon = rem * 2 / frequency < beepCount - 1;
 
                             // 終了直前モードに入ったときにバーを赤色に変える処理
                             if (beOverSoon && (nextBeep == beepCount - 1)) 
@@ -132,7 +146,7 @@ namespace XDReader
                             graphic.FillRectangle(Brushes.White, barWidth, 0, 300 - barWidth, 50);
 
                             // 終了直前は一定間隔で音を鳴らす
-                            if (rem / frequency < nextBeep)
+                            if (rem * 2 / frequency < nextBeep)
                             {
                                 if (nextBeep >= 0)
                                     nextBeep--;
@@ -152,7 +166,7 @@ namespace XDReader
                     UpdateTimeline(sequenceIndex);
 
                     // 全体の待機時間終了まで余裕がある場合のみ
-                    if ((terminal + buffer - frameCount) / frequency > beepCount)
+                    if ((terminal + buffer - frameCount) * 2 / frequency > beepCount)
                     {
                         // タイマーのバーを初期化
                         graphic.Clear(Color.Cyan);
@@ -178,6 +192,16 @@ namespace XDReader
 
         private void UpdateTime(int frame) => label1.Text = $"{frame / frequency:f2}";
 
+        private Task UpdateBufferAsync(int diff)
+        {
+            return Task.Run(() =>
+            {
+                Invoke((MethodInvoker)(() =>
+                {
+                    UpdateBuffer(diff);
+                }));
+            });
+        }
         private void UpdateBuffer(int diff)
         {
             buffer += diff;
@@ -189,6 +213,7 @@ namespace XDReader
         private void button3_Click(object sender, EventArgs e) => UpdateBuffer(-1);
         private void button4_Click(object sender, EventArgs e) => UpdateBuffer(+1);
         private void button5_Click(object sender, EventArgs e) => UpdateBuffer(+5);
+        private void button6_Click(object sender, EventArgs e) => UpdateBuffer(-_rollbackFrames);
 
 
         private void BlinkTimer_FormClosing(object sender, FormClosingEventArgs e)
